@@ -10,10 +10,20 @@ import {
   MinutsAmountInput,
 } from './styles'
 
-export function Home() {
-  const { register, handleSubmit, watch } = useForm()
+interface NewCycleFromData {
+  task: string
+  minutesAmount: number
+}
 
-  function handleCreateNewCycle(data: any) {
+export function Home() {
+  const { register, handleSubmit, watch } = useForm<NewCycleFromData>({
+    defaultValues: {
+      task: '',
+      minutesAmount: 0,
+    },
+  })
+
+  function handleCreateNewCycle(data: NewCycleFromData) {
     console.log(data)
   }
 
@@ -47,7 +57,7 @@ export function Home() {
             step={5}
             min={5}
             max={60}
-            {...register('minutsAmount', { valueAsNumber: true })}
+            {...register('minutesAmount', { valueAsNumber: true })}
           />
 
           <span>minutos.</span>
